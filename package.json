@@ -5,7 +5,11 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "start": "NODE_ENV=production ts-node src/server.ts",
+    "dev": "NODE_ENV=development ts-node src/server.ts",
+    "build": "tsc",
+    "serve": "node dist/server.js"
   },
   "engines": {
     "node": "22",
