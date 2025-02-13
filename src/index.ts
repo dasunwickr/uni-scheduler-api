@@ -1,28 +1,14 @@
-import express, { Express, Request, Response } from "express"
 import dotenv from "dotenv"
-import { PrismaClient } from "@prisma/client"
 import colors from "colors"
+import { createApp } from "./app";
+import { connectDatabase } from "./config/database";
 
 dotenv.config()
 
-const app: Express = express();
-const prisma = new PrismaClient();
-const port = process.env.PORT || 3000;
-
-app.use(express.json())
-
-app.get("/", (_req: Request, res: Response) => {
-    res.json({
-        message: "Test"
-    })
-})
+const port: number = Number(process.env.PORT) || 3000;
+const app = createApp();
 
 app.listen(port, async () => {
-    try {
-        await prisma.$connect();
-        console.log(colors.yellow.underline("[server]: Database connected successfully"))
-    } catch (error) {
-        console.log(colors.cyan("[server]: Failed to connect to database:") + ` ${colors.red((error as Error).message)}`)
-    }
-    console.log(colors.cyan(`[server]: Server is running at http://localhost:${port}`))
+    await connectDatabase();
+    console.log(colors.cyan(`[server]: Server is running at http://localhost:${port}`));
 })
