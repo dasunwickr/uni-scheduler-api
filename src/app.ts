@@ -1,12 +1,10 @@
-import colors from 'colors';
 import express, { Request, Response, Express } from 'express';
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient()
+import morgan from "morgan"
 
 export const createApp = () => {
     const app: Express = express();
 
+    app.use(morgan("dev"))
     app.use(express.json())
 
     app.get("/", (_req: Request, res: Response) => {
