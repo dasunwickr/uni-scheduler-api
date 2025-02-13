@@ -1,5 +1,6 @@
-import prisma from "./prisma";
+
 import colors from "colors";
+import { prisma } from "./prisma";
 
 export const connectDatabase = async () => {
     try {
